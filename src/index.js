@@ -1,7 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk';
 import { AppContainer } from 'react-hot-loader';
 
 // import 'react-toolbox/lib/commons.scss';
@@ -11,7 +12,10 @@ import rootReducer from './reducers';
 
 const store = createStore(
   rootReducer,
-  window.devToolsExtension ? window.devToolsExtension() : f => f
+  compose(
+		applyMiddleware(thunk),
+		window.devToolsExtension ? window.devToolsExtension() : f => f
+	)
 );
 
 const rootEl = document.getElementById('root');

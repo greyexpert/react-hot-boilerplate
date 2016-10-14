@@ -7,4 +7,5 @@ export default combineReducers({
 });
 
 // Global selectors
-export const isUserLoggedIn = ({ user }) => fromUser.isLoggedIn(user);
+export const isUserAuthenticated = ({ user }) => fromUser.isAuthenticated(user);
+export const getUserLoginErrors = ({ user }) => fromUser.getLoginErrors(user);

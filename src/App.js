@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import Login from './components/login';
-import { isUserLoggedIn } from './reducers';
+import { isUserAuthenticated } from './reducers';
 
 const styles = {
   app: {
@@ -15,11 +15,9 @@ const styles = {
 }
 
 const App = (props) => {
-  console.log(props);
-
   return (<div style={styles.app}>
     {
-      props.isUserLoggedIn
+      props.isUserAuthenticated
         ? <div> User is logged in </div>
         : <Login></Login>
     }
@@ -28,5 +26,5 @@ const App = (props) => {
 
 // Container
 export default connect(createStructuredSelector({
-  isUserLoggedIn
+  isUserAuthenticated
 }))(App)

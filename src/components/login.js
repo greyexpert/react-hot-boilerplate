@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import Button from 'react-toolbox/lib/button';
 import Input from 'react-toolbox/lib/input';
 
 import styles from './login.scss';
 import { logIn } from '../reducers/user';
+import { getUserLoginErrors } from '../reducers';
 
 class Login extends Component {
   state = {
@@ -17,6 +19,7 @@ class Login extends Component {
   logIn = () => this.props.logIn(this.state.username, this.state.password);
 
   render() {
+    const { errors } = this.props;
     const { username, password } = this.state;
 
     return (
@@ -24,12 +27,14 @@ class Login extends Component {
         <Input
           label="Username"
           value={username}
+          error={errors.username}
           onChange={this.changeValue('username')}
           type="text"></Input>
 
           <Input
             label="Password"
             value={password}
+            error={errors.password}
             onChange={this.changeValue('password')}
             type="password"></Input>
 
@@ -43,4 +48,6 @@ class Login extends Component {
   }
 }
 
-export default connect(null, { logIn })(Login);
+export default connect(createStructuredSelector({
+  errors: getUserLoginErrors
+}), { logIn })(Login);
