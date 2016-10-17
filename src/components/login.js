@@ -7,7 +7,7 @@ import Input from 'react-toolbox/lib/input';
 
 import styles from './login.scss';
 import { logIn } from '../reducers/user';
-import { getUserLoginErrors } from '../reducers';
+import { getUserLoginErrors, isUserAuthenticating } from '../reducers';
 
 class Login extends Component {
   state = {
@@ -19,7 +19,7 @@ class Login extends Component {
   logIn = () => this.props.logIn(this.state.username, this.state.password);
 
   render() {
-    const { errors } = this.props;
+    const { errors, inProgress } = this.props;
     const { username, password } = this.state;
 
     return (
@@ -38,7 +38,7 @@ class Login extends Component {
             onChange={this.changeValue('password')}
             type="password"></Input>
 
-          <Button raised
+          <Button raised disabled={inProgress}
             className={styles.button}
             onClick={this.logIn}
             label="Login"
@@ -49,5 +49,6 @@ class Login extends Component {
 }
 
 export default connect(createStructuredSelector({
-  errors: getUserLoginErrors
+  errors: getUserLoginErrors,
+  inProgress: isUserAuthenticating,
 }), { logIn })(Login);

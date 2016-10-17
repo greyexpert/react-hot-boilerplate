@@ -7,7 +7,7 @@ import { AppContainer } from 'react-hot-loader';
 
 // import 'react-toolbox/lib/commons.scss';
 
-import App from './App';
+import App from './components/app';
 import rootReducer from './reducers';
 
 const store = createStore(
@@ -36,5 +36,5 @@ if (module.hot) {
   // For reducers
   module.hot.accept('./reducers', () => store.replaceReducer(require('./reducers/index').default));
   // For React components
-  module.hot.accept('./App', () => renderApp(require('./App').default));
+  module.hot.accept('./components/app', () => renderApp(require('./components/app').default));
 }
