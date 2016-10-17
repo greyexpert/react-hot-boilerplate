@@ -11,8 +11,6 @@ const fethInfo = () => fetch('https://randomuser.me/api')
 // Actions
 const logInStart = createAction('LOGIN_START');
 const logInEnd = createAction('LOGIN_END');
-export const logOut = createAction('LOGOUT');
-
 const logInSuccess = createAction('LOGIN_SUCCESS', ({
   name, email, gender, dob: birthdate, picture: {large: image}
 }) => ({
@@ -24,6 +22,8 @@ const logInFailure = createAction('LOGIN_FAILURE', (userError = null, passError 
   username: userError,
   password: passError
 }));
+
+export const logOut = createAction('LOGOUT');
 
 export const logIn = (name, pass) => async (dispatch) => {
   const userError = name !== 'grey' ? 'Username is invalid' : null;
@@ -50,7 +50,6 @@ const authenticated = handleActions({
 const initialErrors = {username: null, password: null};
 const errors = handleActions({
     [logInSuccess]: () => initialErrors,
-    [logOut]: () => initialErrors,
     [logInFailure]: (state, action) => ({ ...state, ...action.payload })
 }, initialErrors);
 
@@ -60,7 +59,7 @@ const authenticating = handleActions({
 }, false);
 
 const info = handleActions({
-  [logOut]: () => {},
+  [logOut]: () => ({}),
   [logInSuccess]: (state, { payload: user }) => user
 }, {});
 

@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 
 import Login from './login';
 import Info from './info';
-import { isUserAuthenticated, getUserInfo } from '../reducers';
+import { isUserAuthenticated } from '../reducers';
 
 import styles from './app.scss';
 
@@ -12,7 +12,7 @@ const App = ({ isUserAuthenticated, user }) => {
   return (<div className={styles.app}>
     {
       isUserAuthenticated
-        ? <Info user={user}></Info>
+        ? <Info></Info>
         : <Login></Login>
     }
   </div>);
@@ -20,6 +20,5 @@ const App = ({ isUserAuthenticated, user }) => {
 
 // Container
 export default connect(createStructuredSelector({
-  isUserAuthenticated,
-  user: getUserInfo,
+  isUserAuthenticated
 }))(App)

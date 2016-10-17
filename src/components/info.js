@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
+import Button from 'react-toolbox/lib/button';
 import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
 
+import { getUserInfo } from '../reducers';
+import { logOut } from '../reducers/user';
+
 import styles from './info.scss';
-const Info = ({ user }) => (
+const Info = ({ info, logOut }) => (
   <Card className={styles.info}>
     <CardTitle
-      avatar={user.image}
-      title={user.name}
-      subtitle={user.email}
+      avatar={info.image}
+      title={info.name}
+      subtitle={info.email}
     />
+
+    <CardActions>
+        <Button label="Log out" onClick={() => logOut()} />
+      </CardActions>
   </Card>
 );
 
-export default Info;
+export default connect(createStructuredSelector({
+  info: getUserInfo
+}), { logOut })(Info);
